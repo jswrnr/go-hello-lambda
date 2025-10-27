@@ -5,7 +5,7 @@ import (
 )
 
 func HandleRequest() (string, error) {
-	return "Hello, World!", nil
+	return "Hello, World!!", nil
 }
 
 func main() {
