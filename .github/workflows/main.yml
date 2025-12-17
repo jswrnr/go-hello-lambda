@@ -26,14 +26,15 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.25.2'
+          go-version: "1.25.2"
 
       - name: Compile and Package Go Lambda
         run: |
-          GOOS=linux GOARCH=amd64 go build -ldflags="-s -w -linkmode external -extldflags '-static'" -o bootstrap src/main.go 
-          
+          run: |
+          GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o bootstrap . 
+
           zip deployment-package.zip bootstrap
-          
+
       - name: Update Lambda Function Code and Configuration
         run: |
           aws lambda update-function-code \
@@ -44,4 +45,3 @@ jobs:
             --function-name hello-world \
             --runtime go1.x \
             --handler bootstrap
-            
