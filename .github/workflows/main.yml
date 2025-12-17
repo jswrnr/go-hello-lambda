@@ -1,9 +1,11 @@
 name: Deploy Lambda via OIDC
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Run Go Tests"]
+    branches: [main]
+    types:
+      - completed
 
 permissions:
   id-token: write
@@ -12,6 +14,8 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - name: Checkout Code
