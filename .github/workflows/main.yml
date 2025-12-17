@@ -30,7 +30,6 @@ jobs:
 
       - name: Compile and Package Go Lambda
         run: |
-          run: |
           GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o bootstrap . 
 
           zip deployment-package.zip bootstrap
